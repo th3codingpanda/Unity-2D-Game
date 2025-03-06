@@ -1,2 +1,5 @@
 # Unity 2D Game
- My first unity 2d game
+#MUSIC CREDIT
+The music used is created by steven obrien please check out his website to discover more AMAZING music
+Music by https://www.steven-obrien.net/
+<Bad times> - Steven O'Brien
