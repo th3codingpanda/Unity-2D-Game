@@ -21,8 +21,8 @@ public class Movementscriot : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Speed = 6f;
-        jumpForce = 12f;
+        Speed = 12f;
+        jumpForce = 16f;
     }
 
     // Update is called once per frame
