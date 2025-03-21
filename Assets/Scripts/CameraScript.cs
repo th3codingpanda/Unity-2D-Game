@@ -9,16 +9,19 @@ public class CameraScript : MonoBehaviour
     private PolygonCollider2D _polygonCollider;
     void Start()
     {
-        _camera.transform.position = new Vector3(_transform.position.x, _transform.position.y , _camera.transform.position.z);
+
     }
     // Update is called once per frame
     void Update()
     {   // edit math clamp to take in camera size
-        _camera.transform.position = new Vector3(Mathf.Clamp(_transform.position.x + _camera.orthographicSize/2, _polygonCollider.points[0].x, _polygonCollider.points[2].x), _transform.position.y, -1);
-        if (Input.GetMouseButton(0)) {
+        //if (_camera.transform.position.x >= _polygonCollider.points[0].x + _camera.orthographicSize) {
+        //    _camera.transform.position = new Vector2(_polygonCollider[0]., 0);
+        //}
+        _camera.transform.position = new Vector3(Mathf.Clamp(_transform.transform.position.x, _polygonCollider.points[0].x + _camera.orthographicSize , _polygonCollider.points[2].x - _camera.orthographicSize), _transform.transform.position.y, -1);
+        //_camera.transform.position = new Vector3(_transform.transform.position.x, _transform.transform.position.y, _camera.transform.position.z);
+        if (Input.GetMouseButton(0))
+        {
             Debug.Log(_camera.transform.position);
-            //do camera stuff with points max out -15 prob because size wow wowoowowowowowowowo
-
         }
     }
     private void FixedUpdate()
