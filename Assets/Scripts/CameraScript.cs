@@ -1,29 +1,25 @@
-using Mono.Cecil;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    [SerializeField]Camera _camera;
-    [SerializeField]Transform _transform;
+    [SerializeField]Camera _maincamera;
+    [SerializeField]Transform _player;
     private PolygonCollider2D _polygonCollider;
+    //replace with box collider
     void Start()
     {
 
     }
     // Update is called once per frame
-    void Update()
-    {   // edit math clamp to take in camera size
-        //if (_camera.transform.position.x >= _polygonCollider.points[0].x + _camera.orthographicSize) {
-        //    _camera.transform.position = new Vector2(_polygonCollider[0]., 0);
-        //}
-        _camera.transform.position = new Vector3(Mathf.Clamp(_transform.transform.position.x, _polygonCollider.points[0].x + _camera.orthographicSize , _polygonCollider.points[2].x - _camera.orthographicSize), _transform.transform.position.y, -1);
-        //_camera.transform.position = new Vector3(_transform.transform.position.x, _transform.transform.position.y, _camera.transform.position.z);
-        if (Input.GetMouseButton(0))
-        {
-            Debug.Log(_camera.transform.position);
-        }
+    private void Update()
+    {
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(_player.transform.position.x, _polygonCollider.bounds.min.x + _maincamera.orthographicSize * _maincamera.aspect, _polygonCollider.bounds.max.x - _maincamera.orthographicSize * _maincamera.aspect);
+        pos.y = Mathf.Clamp(_player.transform.position.y, _polygonCollider.bounds.min.y + _maincamera.orthographicSize, _polygonCollider.bounds.max.y - _maincamera.orthographicSize);
+        _maincamera.transform.position = pos;
     }
+
     private void FixedUpdate()
     {
 
