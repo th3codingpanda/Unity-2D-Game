@@ -120,8 +120,9 @@ GameObject:
   - component: {fileID: 8010466923103993881}
   - component: {fileID: 45799951830852256}
   - component: {fileID: 8872237257716118066}
+  - component: {fileID: 8100015656651365663}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Particle Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4942,6 +4943,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &8100015656651365663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5949189210384252426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3be1ad48756e0d448a2116f6f4dacac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7197699770202074529
 GameObject:
   m_ObjectHideFlags: 0
@@ -5116,3 +5129,6 @@ MonoBehaviour:
     m_Bits: 64
   _dashingSpeed: 10
   _dashingTime: 100
+  OnJump:
+    m_PersistentCalls:
+      m_Calls: []

@@ -27,7 +27,6 @@ public class CameraScript : MonoBehaviour
     }
     public void Change(PolygonCollider2D polygonCollider2D) {
         _polygonCollider = polygonCollider2D;
-        Debug.Log(_polygonCollider.points[0].y); 
-        
+
     }
 }
