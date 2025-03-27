@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Camera_Swap : MonoBehaviour
 {
-    [SerializeField] PolygonCollider2D _polygonCollider2D;
+    [SerializeField] BoxCollider2D _boxcollider2d;
     [SerializeField] CameraScript _cameraScript;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,7 +20,7 @@ public class Camera_Swap : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player")) {
-            _cameraScript.Change(_polygonCollider2D);
+            _cameraScript.Change(_boxcollider2d);
         }
     }
 }

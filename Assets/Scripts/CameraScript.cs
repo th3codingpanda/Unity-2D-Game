@@ -5,7 +5,8 @@ public class CameraScript : MonoBehaviour
 {
     [SerializeField]Camera _maincamera;
     [SerializeField]Transform _player;
-    private PolygonCollider2D _polygonCollider;
+    private BoxCollider2D _boxcollider2d;
+
     //replace with box collider
     void Start()
     {
@@ -15,8 +16,8 @@ public class CameraScript : MonoBehaviour
     private void Update()
     {
         Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(_player.transform.position.x, _polygonCollider.bounds.min.x + _maincamera.orthographicSize * _maincamera.aspect, _polygonCollider.bounds.max.x - _maincamera.orthographicSize * _maincamera.aspect);
-        pos.y = Mathf.Clamp(_player.transform.position.y, _polygonCollider.bounds.min.y + _maincamera.orthographicSize, _polygonCollider.bounds.max.y - _maincamera.orthographicSize);
+        pos.x = Mathf.Clamp(_player.transform.position.x, _boxcollider2d.bounds.min.x + _maincamera.orthographicSize * _maincamera.aspect, _boxcollider2d.bounds.max.x - _maincamera.orthographicSize * _maincamera.aspect);
+        pos.y = Mathf.Clamp(_player.transform.position.y, _boxcollider2d.bounds.min.y + _maincamera.orthographicSize, _boxcollider2d.bounds.max.y - _maincamera.orthographicSize);
         _maincamera.transform.position = pos;
     }
 
@@ -25,8 +26,8 @@ public class CameraScript : MonoBehaviour
 
 
     }
-    public void Change(PolygonCollider2D polygonCollider2D) {
-        _polygonCollider = polygonCollider2D;
+    public void Change(BoxCollider2D boxcollider2d) {
+        _boxcollider2d = boxcollider2d;
 
     }
 }

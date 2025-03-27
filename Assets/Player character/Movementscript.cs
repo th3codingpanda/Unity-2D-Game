@@ -7,19 +7,21 @@ using Unity.VisualScripting;
 using UnityEngine.Events;
 public class Movementscript : MonoBehaviour
 {
+    [Header("Movement variables")]
     public float Speed;
     public float jumpForce;
     public float Move;
-    public bool isFacingRight;
+    [NonSerialized]public UnityEvent<bool> OnJump = new UnityEvent<bool>();
+    [Header("Player Interaction")]
     [SerializeField] Rigidbody2D body;
     [SerializeField] Transform groundcheck;
     [SerializeField] LayerMask groundlayer;
+    [Header("Dashing")]
     [SerializeField] private float _dashingSpeed;
     [SerializeField] private float _dashingTime;
-    [SerializeField] public UnityEvent<bool> OnJump = new UnityEvent<bool>();
-    private Vector2 _dashingdDirection;
-    private bool _isDashing;
-    private bool _canDash;
+
+
+    public Vector2 savedVelocity;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,13 +42,18 @@ public class Movementscript : MonoBehaviour
         {
             body.linearVelocity = new Vector2(body.linearVelocityX, body.linearVelocity.y * 0.5f);
         }
-
     }
+
+
+       
+
+    
     private void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        body.linearVelocity = new Vector2(moveHorizontal * Speed, body.linearVelocity.y);
-
+       
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            body.linearVelocity = new Vector2(moveHorizontal * Speed, body.linearVelocity.y);
+        
 
     }
     private bool isGrounded() {

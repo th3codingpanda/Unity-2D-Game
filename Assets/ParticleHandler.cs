@@ -6,7 +6,7 @@ public class ParticleHandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _movementscript.OnJump.AddListener(changeparticles);
+        _movementscript.OnJump.AddListener(JumpParticles);
     }
 
     // Update is called once per frame
@@ -14,7 +14,7 @@ public class ParticleHandler : MonoBehaviour
     {
         
     }
-    private void changeparticles(bool inair) {
+    private void JumpParticles(bool inair) {
     
     }
 }
