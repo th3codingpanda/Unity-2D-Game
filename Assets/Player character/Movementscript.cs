@@ -5,6 +5,7 @@ using System;
 using UnityEngine.UIElements.Experimental;
 using Unity.VisualScripting;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 public class Movementscript : MonoBehaviour
 {
     [Header("Movement variables")]
@@ -19,28 +20,49 @@ public class Movementscript : MonoBehaviour
     [Header("Dashing")]
     [SerializeField] private float _dashingSpeed;
     [SerializeField] private float _dashingTime;
-
-
-    public Vector2 savedVelocity;
+    private bool _isdashing = false;
+    private bool _candash = false;
+    private bool _isfacingright;
+    private Vector2 _dashingdir;
+    InputAction moveaction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        moveaction = InputSystem.actions.FindAction("Jump");
+
         //OnJump.AddListener(Test);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float moveVertical = Input.GetAxis("Vertical");
-
-        if (Input.GetButtonDown("Jump") && isGrounded())
-        {
-            body.linearVelocity = new Vector2(body.linearVelocityX, jumpForce);
-            OnJump.Invoke(true);
+        if (moveaction.WasPressedThisFrame()) {
+            Debug.Log("I jumped");
         }
-        if (Input.GetButtonUp("Jump") && body.linearVelocity.y > 0f)
+        var dashinput = Input.GetButtonDown("Dash");
+        if (dashinput && _candash) {
+        
+        }
+        if (!_isdashing)
         {
-            body.linearVelocity = new Vector2(body.linearVelocityX, body.linearVelocity.y * 0.5f);
+            if (Input.GetButtonDown("Jump") && isGrounded())
+            {
+                body.linearVelocity = new Vector2(body.linearVelocityX, jumpForce);
+                OnJump.Invoke(true);
+            }
+            if (Input.GetButtonUp("Jump") && body.linearVelocity.y > 0f)
+            {
+                body.linearVelocity = new Vector2(body.linearVelocityX, body.linearVelocity.y * 0.5f);
+            }
+
+            float moveX = Input.GetAxis("Horizontal");
+            float moveY = Input.GetAxis("Vertical");
+            
+            _dashingdir = new Vector2(moveX, moveY).normalized;
+            body.linearVelocity = new Vector2(moveX * Speed, body.linearVelocity.y);
+        }
+        else {
+        
         }
     }
 
@@ -50,10 +72,8 @@ public class Movementscript : MonoBehaviour
     
     private void FixedUpdate()
     {
-       
-            float moveHorizontal = Input.GetAxis("Horizontal");
-            body.linearVelocity = new Vector2(moveHorizontal * Speed, body.linearVelocity.y);
-        
+
+
 
     }
     private bool isGrounded() {
@@ -62,9 +82,7 @@ public class Movementscript : MonoBehaviour
         
     }
 
-    /*private void Flip() {
-        if (isFacingRight && body.linearVelocityX < 0f) {
-        
-        }
-    }*/
+    private void Flip() {
+        _isfacingright = !_isfacingright;
+    }
 }
