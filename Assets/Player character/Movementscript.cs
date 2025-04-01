@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 public class Movementscript : MonoBehaviour
 {
     [Header("Movement variables")]
+    [SerializeField] private InputEventScript _inputscript;
     public float Speed;
     public float jumpForce;
     public float Move;
@@ -24,21 +25,18 @@ public class Movementscript : MonoBehaviour
     private bool _candash = false;
     private bool _isfacingright;
     private Vector2 _dashingdir;
-    InputAction moveaction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        moveaction = InputSystem.actions.FindAction("Jump");
-
+        _inputscript.OnMove.AddListener(Movement);
+        _inputscript.OnJump.AddListener(Movement);
         //OnJump.AddListener(Test);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (moveaction.WasPressedThisFrame()) {
-            Debug.Log("I jumped");
-        }
+        
         var dashinput = Input.GetButtonDown("Dash");
         if (dashinput && _candash) {
         
@@ -59,7 +57,7 @@ public class Movementscript : MonoBehaviour
             float moveY = Input.GetAxis("Vertical");
             
             _dashingdir = new Vector2(moveX, moveY).normalized;
-            body.linearVelocity = new Vector2(moveX * Speed, body.linearVelocity.y);
+            //body.linearVelocity = new Vector2(moveX * Speed, body.linearVelocity.y);
         }
         else {
         
@@ -84,5 +82,9 @@ public class Movementscript : MonoBehaviour
 
     private void Flip() {
         _isfacingright = !_isfacingright;
+    }
+    private void Movement(Vector2 Dir) 
+    {
+        body.linearVelocity = new Vector2(Dir.x * Speed, body.linearVelocity.y);
     }
 }
