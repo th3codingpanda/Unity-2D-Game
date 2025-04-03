@@ -1,12 +1,12 @@
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class CameraScript : MonoBehaviour
 {
-    [SerializeField]Camera _maincamera;
-    [SerializeField]Transform _player;
+    [SerializeField] Camera _maincamera;
+    [SerializeField] Transform _player;
     private BoxCollider2D _boxcollider2d;
-
+    public UnityEvent<BoxCollider2D,Collider2D> GiveRoom = new UnityEvent<BoxCollider2D,Collider2D>();
     //replace with box collider
     void Start()
     {
@@ -26,8 +26,13 @@ public class CameraScript : MonoBehaviour
 
 
     }
-    public void Change(BoxCollider2D boxcollider2d) {
+    public void Change(BoxCollider2D boxcollider2d)
+    {
         _boxcollider2d = boxcollider2d;
 
     }
+    public void FindRespawn(Collider2D collider2D) {
+        GiveRoom.Invoke(_boxcollider2d,collider2D);
+    }
+
 }

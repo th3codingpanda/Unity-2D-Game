@@ -30,12 +30,21 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Hold",
                     "type": "Button",
                     "id": "1243c963-2bff-4023-a3dd-597ba330ec05",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ReverseGravity",
+                    "type": "Button",
+                    "id": "54c15e9f-359b-44c4-a8f2-9f98f18af976",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -260,6 +269,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ebe9456-17f4-4383-9054-03cfbe57ff05",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ReverseGravity",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
