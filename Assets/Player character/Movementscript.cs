@@ -132,6 +132,9 @@ public class Movementscript : MonoBehaviour
             GetComponentInChildren<SpriteRenderer>(true).flipY = !GetComponentInChildren<SpriteRenderer>(true).flipY;
             body.gravityScale = -body.gravityScale;
             _lastgravityscale = body.gravityScale;
+            jumpForce = -jumpForce;
+            groundcheck.transform.localPosition = -groundcheck.transform.localPosition;
+            Debug.Log(groundcheck.transform.localPosition);
         }
     }
 }
