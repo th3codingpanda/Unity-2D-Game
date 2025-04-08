@@ -8,6 +8,8 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using JetBrains.Annotations;
 using UnityEditor.Tilemaps;
+using Unity.Burst.CompilerServices;
+using static UnityEngine.ParticleSystem;
 public class Movementscript : MonoBehaviour
 {
     [Header("Movement variables")]
@@ -16,7 +18,6 @@ public class Movementscript : MonoBehaviour
     public float Speed;
     public float jumpForce;
     public float Move;
-    [NonSerialized] public UnityEvent<bool> OnJump = new UnityEvent<bool>();
     [Header("Player Interaction")]
     [SerializeField] Rigidbody2D body;
     [SerializeField] Transform groundcheck;
@@ -26,21 +27,19 @@ public class Movementscript : MonoBehaviour
     [SerializeField] private float _dashingTime;
     private float _lastgravityscale;
     private float _dashingdirection;
-    private float _timedashing = 0;
-    private bool _isdashing = false;
+    private float _timedashing;
+    private bool _isdashing;
     private bool _candash = true;
-    private bool _isfacingright = false;
+    private bool _isfacingright;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _inputscript = InputEventScript.Instance;
         _inputscript.OnMove.AddListener(Movement);
-        _inputscript.OnJump.AddListener(Movement);
         _inputscript.OnDash.AddListener(Dash);
         _inputscript.OnReverseGravity.AddListener(ReverseGravity);
-
-        //OnJump.AddListener(Test);
+        _lastgravityscale = body.gravityScale;
     }
 
 
@@ -78,7 +77,6 @@ public class Movementscript : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
             body.linearVelocity = new Vector2(body.linearVelocityX, jumpForce);
-            OnJump.Invoke(true);
         }
         if (Input.GetButtonUp("Jump") && body.linearVelocity.y > 0f)
         {
@@ -134,7 +132,11 @@ public class Movementscript : MonoBehaviour
             _lastgravityscale = body.gravityScale;
             jumpForce = -jumpForce;
             groundcheck.transform.localPosition = -groundcheck.transform.localPosition;
-            Debug.Log(groundcheck.transform.localPosition);
+            ParticleSystem rainparticle = GetComponentInChildren<ParticleSystem>();
+            rainparticle.transform.localPosition = -rainparticle.transform.localPosition;
+            VelocityOverLifetimeModule velocityoverlife = rainparticle.velocityOverLifetime;
+            
+            velocityoverlife.speedModifierMultiplier = -velocityoverlife.speedModifierMultiplier;
         }
     }
 }

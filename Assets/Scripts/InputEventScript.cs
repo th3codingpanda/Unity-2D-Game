@@ -11,7 +11,7 @@ public class InputEventScript : Singleton<InputEventScript>
     private InputAction GrabAction;
     private InputAction ReverseGravityAction;
     [NonSerialized] public UnityEvent<Vector2> OnMove = new UnityEvent<Vector2>();
-    [NonSerialized] public UnityEvent<Vector2> OnJump = new UnityEvent<Vector2>();
+    [NonSerialized] public UnityEvent<bool> OnJump = new UnityEvent<bool>();
     [NonSerialized] public UnityEvent OnDash = new UnityEvent();
     [NonSerialized] public UnityEvent<Vector2> OnGrab = new UnityEvent<Vector2>();
     [NonSerialized] public UnityEvent OnReverseGravity = new UnityEvent();
@@ -36,6 +36,10 @@ public class InputEventScript : Singleton<InputEventScript>
         if (ReverseGravityAction.WasPressedThisFrame())
         {
             OnReverseGravity.Invoke();
+        }
+        if (JumpAction.WasPerformedThisFrame())
+        {
+            OnJump.Invoke(true);
         }
     }
 }
